@@ -19,6 +19,21 @@ import { AppResolver } from './app.resolver';
       buildSchemaOptions: {
         numberScalarMode: 'integer',
       },
+      errorFormatter: (execution, ctx) => {
+        const error = execution.errors[0];
+
+        // No details here as well
+        console.log('Error: ', error);
+
+        return {
+          response: {
+            data: execution.data,
+            errors: execution.errors,
+            extensions: execution.extensions,
+          },
+          statusCode: 404,
+        };
+      },
     }),
   ],
   controllers: [AppController],
